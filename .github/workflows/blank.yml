@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["deploy"]
+  pull_request:
+    branches: ["deploy"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, world! >> file.txt
+      - name: Copy Files to host
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.HOST_USERNAME}}
+          key: ${{secrets.KEY}}
+          port: ${{secrets.PORT}}
+          source: file.txt
+          target: ~/repos/images
