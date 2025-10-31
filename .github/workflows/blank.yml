@@ -14,8 +14,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world! >> file.txt
-      - name: Copy Files to host
-        run: echo "Using usename:${{ secrets.HOST_USERNAME }}" & echo "Using KEY:${{ secrets.KEY }}" & echo "Using port:${{ secrets.PORT }}" & echo "Using HOST:${{ secrets.HOST }}"
+      - name: Logs
+        run: |
+          echo "Using usename:${{ secrets.HOST_USERNAME }}"
+          echo "Using KEY:${{ secrets.KEY }}"
+          echo "Using port:${{ secrets.PORT }}"
+          echo "Using HOST:${{ secrets.HOST }}"
+      - name: Copy file to host
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.HOST }}
